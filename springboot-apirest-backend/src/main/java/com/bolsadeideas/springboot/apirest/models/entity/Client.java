@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * ESta clase sirve como ORM de la tabla clients de la BBDD MySql
+ */
 @Entity
 @Table(name = "clients")
 public class Client implements Serializable {
@@ -19,7 +22,10 @@ public class Client implements Serializable {
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
     private Date createAt;
-
+    @PrePersist
+    public void prePersist(){
+        createAt = new Date();
+    }
     public Long getId() {
         return id;
     }
