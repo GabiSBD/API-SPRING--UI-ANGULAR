@@ -48,7 +48,7 @@ export class ClientesComponent implements OnInit{
           this.clientes = this.clientes.filter(cli=> cli!==cliente);
           Swal.fire(
               '¡Borrado!',
-              'El cliente a sido borrado.',
+              `${response.message}`,
               'success'
             )
         });

@@ -40,12 +40,12 @@ public class ClientRestController {
             client = clientService.findById(id);
 
         }catch (DataAccessException e){
-            response.put("mensaje", "Error al realizar la consulta en la BBDD");
+            response.put("message", "Error al realizar la consulta en la BBDD");
             response.put("error", e.getMessage().concat(" ").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         if(client == null){
-            response.put("mensaje","El Cliente con ID: ".concat(id.toString()).concat(" no existe en la BBDD"));
+            response.put("message","El Cliente con ID: ".concat(id.toString()).concat(" no existe en la BBDD"));
             return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
         }
 
@@ -58,13 +58,13 @@ public class ClientRestController {
         try {
              newClient = clientService.save(client);
         }catch (DataAccessException e){
-            response.put("mensaje","Error al realizar el insert en la BBDD");
+            response.put("message","Error al realizar el insert en la BBDD");
             response.put("error", e.getMessage().concat(" ").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        response.put("mensaje", "El cliente a sido creado con éxito");
-        response.put("cliente",newClient);
+        response.put("message", "El cliente a sido creado con éxito");
+        response.put("client",newClient);
 
         return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
     }
@@ -75,7 +75,7 @@ public class ClientRestController {
         Map<String,Object> response = new HashMap<>();
 
         if(client==null){
-            response.put("mensaje","Error al realizar el update en la BBDD, no se encontró el Cliente a actualizar en la BBDD");
+            response.put("message","Error al realizar el update en la BBDD, no se encontró el Cliente a actualizar en la BBDD");
 
             return new ResponseEntity<Map<String,Object>>(response, HttpStatus.NOT_FOUND);
         }
@@ -86,12 +86,12 @@ public class ClientRestController {
 
              result = clientService.save(client);
         }catch (DataAccessException e){
-            response.put("mensaje","Error al realizar el update en la BBDD");
+            response.put("message","Error al realizar el update en la BBDD");
             response.put("error", e.getMessage().concat(" ").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<Map<String,Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        response.put("mensaje", "El Cliente con ID:"+id+" a sido actualizado con exito");
-        response.put("cliente",result);
+        response.put("message", "El Cliente con ID:"+id+" a sido actualizado con exito");
+        response.put("client",result);
 
         return new ResponseEntity<Map<String,Object>>(response, HttpStatus.CREATED);
     }
@@ -102,17 +102,17 @@ public class ClientRestController {
         Client clientToDelete = clientService.findById(id);
 
         if(clientToDelete==null) {
-            response.put("mensaje", "El id enviado no corresponde a ningún cliente");
+            response.put("message", "El id enviado no corresponde a ningún cliente");
             return new ResponseEntity<Map<String,Object>>(response,HttpStatus.NOT_FOUND);
         }
         try{
             clientService.deleteById(id);
         }catch (DataAccessException e){
-            response.put("mensaje", "Error al borrar el cliente con ID: "+id+"de la BBDD");
+            response.put("message", "Error al borrar el cliente con ID: "+id+"de la BBDD");
             response.put("error", e.getMessage().concat(" ").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<Map<String,Object>>(response,HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        response.put("mensaje", "El cliente con ID: "+id+" ha sido borrado con éxito");
+        response.put("message", "El cliente con ID: "+id+" ha sido borrado con éxito");
         return new ResponseEntity<Map<String,Object>>(response,HttpStatus.OK);
 
     }
